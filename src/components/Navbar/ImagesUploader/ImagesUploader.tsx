@@ -1,24 +1,30 @@
 import React, { useState, useCallback } from 'react';
+
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import { IconButton, TextField, Button, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import { useDropzone } from 'react-dropzone'
 import { imageToBase64 } from '@/utilities';
+import { addImage } from '@/redux/states';
+import { useDispatch } from 'react-redux';
 
-export interface ImagesUploaderInterface { }
-
-const ImagesUploader: React.FC<ImagesUploaderInterface> = () => {
-  const [image, setImage] = useState<File>();
+interface Props {
+  setCloseAfterUpload: React.Dispatch<React.SetStateAction<boolean>>
+}
+export const ImagesUploader = ({ setCloseAfterUpload }: Props) => {
+  const [imageFile, setImageFile] = useState<File>();
   const [title, setTitle] = useState<string>('');
   const [preview, setPreview] = useState<string>('');
+  const dispatch = useDispatch();
 
   const onDrop = useCallback((acceptedFiles: any) => {
-    setImage(acceptedFiles[0]);
+    setImageFile(acceptedFiles[0]);
     setPreview(URL.createObjectURL(acceptedFiles[0]));
   }, [])
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
   const handleOnClick = async () => {
-    await imageToBase64(image)
+    dispatch(addImage({id: Date.now(), title, image: await imageToBase64(imageFile) }))
+    setCloseAfterUpload(true)
   }
 
   return (
@@ -34,7 +40,7 @@ const ImagesUploader: React.FC<ImagesUploaderInterface> = () => {
           <input {...getInputProps()} />
           {
             isDragActive ?
-              <p>Arrastra la imágen aquí ...</p> :
+              <p>Arrastra la imagen aquí ...</p> :
               <p>Arrastra la imagen aquí, o pulsa para seleccionarla</p>
           }
         </div>

@@ -1,5 +1,5 @@
+import React, {useState} from 'react';
 import { AppBar, IconButton, Toolbar, Typography } from '@mui/material';
-import React from 'react';
 import { CustomDialog } from '../CustomDialog';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import { dialogOpenSubject$ } from '../CustomDialog/CustomDialog';
@@ -8,6 +8,8 @@ import { ImagesUploader } from './ImagesUploader';
 export interface NavbarInterface { }
 
 const Navbar: React.FC<NavbarInterface> = () => {
+  const [closeAfterUpload, setCloseAfterUpload] = useState<boolean>(false);
+
 
   const handleClick = () => {
     dialogOpenSubject$.setSubject = true;
@@ -15,8 +17,8 @@ const Navbar: React.FC<NavbarInterface> = () => {
 
   return (
     <>
-      <CustomDialog>
-        <ImagesUploader />
+      <CustomDialog closeAfterUpload={closeAfterUpload}>
+        <ImagesUploader setCloseAfterUpload={setCloseAfterUpload} />
       </CustomDialog>
       <AppBar position="fixed">
         <Toolbar>

@@ -5,13 +5,14 @@ import { Subscription } from 'rxjs';
 
 interface Props {
   children: React.ReactNode;
+  closeAfterUpload: any
 }
 
 export const dialogOpenSubject$ = new SubjectManager<boolean>();
 export const dialogCloseSubject$ = new SubjectManager<boolean>();
 
-export const CustomDialog = ({ children }: Props) => {
-  const [open, setOpen] = useState(false);
+export const CustomDialog = ({ children, closeAfterUpload }: Props) => {
+  const [open, setOpen] = useState<boolean>(false);
   let openSubject$ = new Subscription();
   let closeSubject$ = new Subscription();
 
@@ -23,6 +24,11 @@ export const CustomDialog = ({ children }: Props) => {
       closeSubject$.unsubscribe();
     };
   }, []);
+
+  useEffect(() => {
+    console.log('close')
+    setOpen(false);
+  }, [closeAfterUpload]);
 
   const handleClickOpen = () => {
     setOpen(true);
