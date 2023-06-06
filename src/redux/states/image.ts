@@ -9,7 +9,8 @@ export const imagesSlice = createSlice({
   initialState: getLocalStorage(LocalStorageTypes.IMAGES) ? JSON.parse(getLocalStorage(LocalStorageTypes.IMAGES) as string) : initialState,
   reducers: {
     addImage: (state, action) => {
-      setLocalStorage(LocalStorageTypes.IMAGES, state);
+      const current = [...getLocalStorage(LocalStorageTypes.IMAGES) ? JSON.parse(getLocalStorage(LocalStorageTypes.IMAGES) as string) : initialState, action.payload]
+      setLocalStorage(LocalStorageTypes.IMAGES, current);
       return action.payload;
     }
   }
