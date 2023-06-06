@@ -8,6 +8,7 @@ import { removeImage, editImage } from '@/redux/states';
 import { AppStore } from '@/redux/store';
 import DeleteIcon from '@mui/icons-material/Delete';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
+import { openImageNewTab } from '@/utilities';
 
 export interface ImagesTableInterface {}
 
@@ -30,6 +31,10 @@ const ImagesTable: React.FC<ImagesTableInterface> = () => {
 
   const handleOnClickRemove = (image: Image) => {
     dispatch(removeImage(image));
+  };
+
+  const handleOnClickOpen = (base: string) => {
+    openImageNewTab(base)
   };
 
   const colums = [
@@ -63,7 +68,7 @@ const ImagesTable: React.FC<ImagesTableInterface> = () => {
       flex: 1,
       renderCell: (params: GridRenderCellParams) => (
         <>
-          {<img width='175px' height='110px' src={params.value} />}
+          {<img onClick={() => handleOnClickOpen(params.value)} width='175px' height='110px' src={params.value} />}
         </>
       )
     },
