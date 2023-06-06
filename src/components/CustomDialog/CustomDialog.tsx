@@ -26,7 +26,6 @@ export const CustomDialog = ({ children, closeAfterUpload }: Props) => {
   }, []);
 
   useEffect(() => {
-    console.log('close')
     setOpen(false);
   }, [closeAfterUpload]);
 
