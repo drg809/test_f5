@@ -5,3 +5,10 @@ export const imageToBase64 = (blob: any) => {
       reader.readAsDataURL(blob);
    });
 };
+
+export const openImageNewTab = (base: string) => {
+   const image = new Image();
+   image.src = base;
+
+   window.open("")?.document.write(image.outerHTML)
+};
