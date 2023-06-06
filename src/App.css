@@ -1,0 +1,23 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.imageUploader__base {
+  padding: 2vh;
+}
+
+.imageUploader__preview {
+  width: 100%;
+}
+
+.imageUploader__div {
+  border: 1px solid #1976d2;
+  padding: 1vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 5px;
+}
